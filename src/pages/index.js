@@ -1,9 +1,10 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Inter } from 'next/font/google';
+import styles from '@/styles/Home.module.css';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   return (
@@ -40,10 +41,18 @@ export default function Home() {
         </div> */}
         <nav className={styles.mainnav}>
           <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
-            <li>Blogs</li>
+            <Link href='/' scroll={false}>
+              <li>Home</li>
+            </Link>
+            <Link href='/about' scroll={false}>
+              <li>About</li>
+            </Link>
+            <Link href='/contact' scroll={false}>
+              <li>Contact</li>
+            </Link>
+            <Link href='/blogs' scroll={false}>
+              <li>Blogs</li>
+            </Link>
           </ul>
         </nav>
 
@@ -57,7 +66,7 @@ export default function Home() {
             priority
           />
         </div>
-        
+
         <div className={styles.blogs}>
           <h2>Popular Blogs</h2>
           <div className={styles.blogItem}>
@@ -138,5 +147,5 @@ export default function Home() {
         </div> */}
       </main>
     </>
-  )
+  );
 }
