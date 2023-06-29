@@ -1,12 +1,57 @@
+"use client";
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
+import { Client,Databases,ID,Query } from 'appwrite';
+import { useState,useEffect } from 'react';
+
+const client = new Client();
+const databases = new Databases(client);
+
+client
+  .setEndpoint('https://cloud.appwrite.io/v1')
+  .setProject('maxfandom');
 
 const inter = Inter({ subsets: ['latin'] });
 
+// const blogItems = [
+//   {
+//     title: 'Jason Todd: Robin Destroyed',
+//     image: '/blog1-bg.jpg',
+//     author: 'John Doe',
+//     image: '/blog1-image.jpg',
+//     slug: 'jason-todd',
+//   },
+//   {
+//     title: 'Black Knight: Cursed Avenger',
+//     image: '/blog2-bg.jpg',
+//     author: 'Jane Smith',
+//     image: '/blog2-image.jpg',
+//     slug: 'black-knight',
+//   },
+//   // ... other blog items
+// ];
+
 export default function Home() {
+
+  const [blogItems,setblogItems] = useState([]);
+  useEffect(() => {
+    const databases = new Databases(client);
+
+    let promise = databases.listDocuments(
+      "649bfc2a05e1966040cc","649bfc37e73c9795de86",
+    );
+
+    promise.then(function (response) {
+      console.log(response);
+      setblogItems(response.documents);
+    },function (error) {
+      console.log(error);
+    });
+  },[]);
+
   return (
     <div className={styles.container}>
       <style jsx>
@@ -50,7 +95,7 @@ export default function Home() {
           />
         </div>
 
-        <div className={styles.blogs}>
+        {/* <div className={styles.blogs}>
           <h2>Popular Blogs</h2>
           <div className={styles.blogItem}>
             <h3>Jason Todd: Robin Destroyed</h3>
@@ -68,6 +113,29 @@ export default function Home() {
             <h3>Jon Kent: Destiny</h3>
             <p>Jonathan Kent – Son of Superman Let’s take a look at his journey and destiny.</p>
           </div>
+        </div> */}
+        
+        <div className={styles.blogs}>
+          <h2>Popular Blogs</h2>
+          {blogItems.map((item) => (
+            <div key={item.slug} className={styles.blogItem}>
+              <div className={styles.blogItemImage}>
+                <Image src={item.image} alt={item.title} width={500} height={300} />
+              </div>
+              <div className={styles.blogItemContent}>
+                {item.title}
+                <p>By {item.author}</p>
+              </div>
+              <div className={styles.metadesc}>
+                {item.metadesc}
+              </div>
+              <div className={styles.readMore}>
+                <Link href={`/blogs/${item.slug}`} className={styles.readMoreButton}>
+                  Read More
+                </Link>
+              </div>
+            </div>
+          ))}
         </div>
 
       </main>
