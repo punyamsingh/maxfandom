@@ -32,6 +32,24 @@ module.exports = {
         port: '',
         // pathname: '/account123/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.pinimg.com',
+        port: '',
+        // pathname: '/account123/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'pbs.twimg.com',
+        port: '',
+        // pathname: '/account123/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'fortressofinsights.files.wordpress.com',
+        port: '',
+        // pathname: '/account123/**',
+      },
     ],
   },
 };

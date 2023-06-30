@@ -1,7 +1,9 @@
+"use client"
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { Client,Databases,Query } from 'appwrite';
 import { useState,useEffect } from 'react';
+import styles from '@/styles/Home.module.css';
 
 const client = new Client();
 const databases = new Databases(client);
@@ -44,10 +46,10 @@ const BlogPage = () => {
 
     return (
         <div>
-            <h1>{title}</h1>
-            <div>
-                <Image src={image} alt={title} width={800} height={500} />
-            </div>
+            {/* <h1 style={{font:"50px"}}>{title}</h1>
+            <div className={styles.blogItemImage}>
+                <Image src={image} alt={title} width={500} height={500} priority={true} />
+            </div> */}
             <div dangerouslySetInnerHTML={{ __html: content }}></div>
         </div>
     );

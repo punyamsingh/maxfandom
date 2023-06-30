@@ -94,33 +94,13 @@ export default function Home() {
             priority
           />
         </div>
-
-        {/* <div className={styles.blogs}>
-          <h2>Popular Blogs</h2>
-          <div className={styles.blogItem}>
-            <h3>Jason Todd: Robin Destroyed</h3>
-            <p>Learn the tale of Jason Todd and how the opinion of fans changed the destiny of this character?</p>
-          </div>
-          <div className={styles.blogItem}>
-            <h3>Black Knight: Cursed Avenger</h3>
-            <p>Learn the tale of this lone crusader. Because his struggles are worth mentioning.</p>
-          </div>
-          <div className={styles.blogItem}>
-            <h3>Avengers Arena & Heroes In Crisis</h3>
-            <p>Blood was spilled. Lives were lost. And their world was never the same again.</p>
-          </div>
-          <div className={styles.blogItem}>
-            <h3>Jon Kent: Destiny</h3>
-            <p>Jonathan Kent – Son of Superman Let’s take a look at his journey and destiny.</p>
-          </div>
-        </div> */}
         
         <div className={styles.blogs}>
           <h2>Popular Blogs</h2>
           {blogItems.map((item) => (
             <div key={item.slug} className={styles.blogItem}>
               <div className={styles.blogItemImage}>
-                <Image src={item.image} alt={item.title} width={500} height={300} />
+                <Image src={item.image} alt={item.title} width={500} height={300} priority={true} />
               </div>
               <div className={styles.blogItemContent}>
                 {item.title}
@@ -130,7 +110,7 @@ export default function Home() {
                 {item.metadesc}
               </div>
               <div className={styles.readMore}>
-                <Link href={`/blogs/${item.slug}`} className={styles.readMoreButton}>
+                <Link href={`/blogs/${item.slug}`} className={styles.readMoreButton} target="_blank">
                   Read More
                 </Link>
               </div>
