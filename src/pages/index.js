@@ -6,6 +6,7 @@ import { Inter } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
 import { Client,Databases,ID,Query } from 'appwrite';
 import { useState,useEffect } from 'react';
+import Navbar from './components/Navbar';
 
 const client = new Client();
 const databases = new Databases(client);
@@ -52,8 +53,42 @@ export default function Home() {
     });
   },[]);
 
+  // useEffect(() => {
+  //   // Select the logo and navbar elements
+  //   const logoContainer = document.querySelector('.logo-container');
+  //   const navbar = document.querySelector('.navbar');
+
+  //   // Calculate the position where the logo should stick to the navbar
+  //   const stickyOffset = navbar?.offsetTop + navbar?.offsetHeight;
+
+  //   // Function to handle scroll events
+  //   function handleScroll() {
+  //     // Get the current scroll position
+  //     const scrollPosition = window.scrollY;
+
+  //     // Calculate the target position for the logo
+  //     const targetPosition = stickyOffset - logoContainer.offsetHeight;
+
+  //     // Update the logo's position based on the scroll position
+  //     if (scrollPosition >= targetPosition) {
+  //       logoContainer.style.top = `${navbar.offsetHeight}px`;
+  //     } else {
+  //       logoContainer.style.top = '50%';
+  //     }
+  //   }
+
+  //   // Attach the scroll event listener to the window
+  //   window.addEventListener('scroll',handleScroll);
+
+  //   // Cleanup the event listener when the component unmounts
+  //   return () => {
+  //     window.removeEventListener('scroll',handleScroll);
+  //   };
+  // },[]);
+
+
   return (
-    <div className={styles.container}>
+    <div className={styles.body}>
       <style jsx>
         {`
 
@@ -66,53 +101,47 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Navbar className="navbar" />
       <main className={`${styles.main} ${inter.className}`}>
-        <nav className={styles.mainnav}>
-          <ul>
-            <Link href='/' scroll={false}>
-              <li>Home</li>
-            </Link>
-            <Link href='/about' scroll={false}>
-              <li>About</li>
-            </Link>
-            <Link href='/contact' scroll={false}>
-              <li>Contact</li>
-            </Link>
-            <Link href='/blogs' scroll={false}>
-              <li>Blogs</li>
-            </Link>
-          </ul>
-        </nav>
-
         <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/logo.png"
-            alt="maxfandom logo"
-            width={274}
-            height={200}
-            priority
-          />
+          <div className="logo-container">
+            <Image
+              className={styles.logo}
+              src="/logo.png"
+              alt="maxfandom logo"
+              width={274}
+              height={200}
+              priority
+            />
+          </div>
         </div>
-        
+        <hr className={styles.hr} />
         <div className={styles.blogs}>
-          <h2>Popular Blogs</h2>
+          <h2 color='white'>Popular Blogs</h2>
           {blogItems.map((item) => (
+
             <div key={item.slug} className={styles.blogItem}>
-              <div className={styles.blogItemImage}>
-                <Image src={item.image} alt={item.title} width={500} height={300} priority={true} />
-              </div>
-              <div className={styles.blogItemContent}>
-                {item.title}
+              <Link href={`/blogs/${item.slug}`} target="_blank">
+                <div className={styles.blogItemImage}>
+                  {/* style={{ backgroundImage: `url(${item.image})` }} */}
+                  <Image src={item.image} alt={item.title} width={2000} height={0} priority={true} style={{ height: "100%",width: "100%" }} />
+                </div>
+              </Link>
+              <div className={styles.blogItemDetails}>
+                <div className={styles.blogItemTitle}>
+                  {item.title}
+                </div>
                 <p>By {item.author}</p>
-              </div>
-              <div className={styles.metadesc}>
-                {item.metadesc}
-              </div>
-              <div className={styles.readMore}>
-                <Link href={`/blogs/${item.slug}`} className={styles.readMoreButton} target="_blank">
-                  Read More
-                </Link>
+                <div className={styles.metadesc}>
+                  {item.metadesc}
+                </div>
+                <br/>
+                <p>Published On: {item.publish_date.slice(0,10)}</p>
+                <div className={styles.readMore}>
+                  <Link href={`/blogs/${item.slug}`} className={styles.readMoreButton} target="_blank">
+                    Read More
+                  </Link>
+                </div>
               </div>
             </div>
           ))}
