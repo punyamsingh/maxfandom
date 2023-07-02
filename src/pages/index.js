@@ -107,7 +107,7 @@ export default function Home() {
           <div className="logo-container">
             <Image
               className={styles.logo}
-              src="/logo.png"
+              src="/logo2.png"
               alt="maxfandom logo"
               width={274}
               height={200}

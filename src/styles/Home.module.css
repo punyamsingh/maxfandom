@@ -108,7 +108,7 @@
 .logo {
   margin: 100px;
   position: relative;
-  mix-blend-mode: screen;
+  /* mix-blend-mode: screen; */
 }
 
 .navList {
